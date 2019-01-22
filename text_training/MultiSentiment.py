@@ -16,8 +16,7 @@ import re
 
 print('Reading in raw data...')
 names = ["sentiment","content"]
-dataframe = pd.read_csv('../datasets/posneg_processed.csv', names=names, encoding = "ISO-8859-1")
-dataframe['content']=dataframe['content'].astype(str)
+dataframe = pd.read_csv('../text_datasets/isear_processed.csv', names=names, encoding = "ISO-8859-1")
 # 0 - neg, 1 - 
 print('Tokenizing...')
 max_features = 1000
@@ -39,16 +38,15 @@ lstm_out = 128
 
 model = Sequential()
 model.add(Embedding(max_features, embed_dim,input_length = X.shape[1]))
-model.add(SpatialDropout1D(0.1))
-model.add(LSTM(lstm_out, dropout=0.5, recurrent_dropout=0.5))
-model.add(Dense(2,activation='softmax'))
+model.add(LSTM(lstm_out, dropout=0.6, recurrent_dropout=0.6))
+model.add(Dense(7,activation='softmax'))
 model.compile(loss = 'categorical_crossentropy', optimizer='adam',metrics = ['accuracy'])
 print(model.summary())
 
 batch_size = 128
 model.fit(x_train, y_train,batch_size=batch_size,epochs=50,validation_data=(x_cv, y_cv))
 
-model.save('../models/binary_model.h5')  # creates a HDF5 file 'my_model.h5'
+model.save('../text_models/multi_model.h5')  # creates a HDF5 file 'my_model.h5'
 
 score,acc = model.evaluate(x_test, y_test, verbose = 2, batch_size = batch_size)
 print("score: %.2f" % (score))

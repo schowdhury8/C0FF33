@@ -46,8 +46,8 @@ def main():
     tokenizer.fit_on_texts(clean_str)
     X = tokenizer.texts_to_sequences(clean_str)
 
-    model_posneg = load_model('./models/binary_model.h5')
-    model_multi = load_model('./models/multi_model.h5')
+    model_posneg = load_model('./text_models/binary_model.h5')
+    model_multi = load_model('./text_models/multi_model.h5')
  
     X = pad_sequences(X, maxlen=57)
 
