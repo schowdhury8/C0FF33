@@ -14,6 +14,13 @@ As part of our procedure, we plan on training a machine learning model to be abl
 	* Entertainment tool better suited and specialized for varied audiences
 	
 Machines only take words literally and allowing them to input emotion allows a degree of nuance in their responses. With the increasing prevalence of personal assistants in homes, with the user’s consent, it can also be used to identify a their state of mind and mental health based off the tonality of their voice among other factors.
+# Required Libraries:
+## Text Analysis:
+* Keras and Tensorflow
+* Numpy
+* nltk
+* sklearn
+* speechrecognition
 ___
 # Resources
 ## Articles
