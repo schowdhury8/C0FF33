@@ -3,20 +3,14 @@ import sys
 import imp
 import librosa
 import numpy as np
-from keras.models import model_from_json
+import keras
 
 EMOTIONS = ['neutral', 'calm', 'happy', 'sad', 'angry', 'fearful', 'disgust', 'surprised']
 
-def load_model(model_path, weights_path):
-    "Load the trained LSTM model from directory for emotion classification"
-    with open(model_path, 'r') as model_file:
-        trained_model = model_from_json(model_file.read())
-    trained_model.load_weights(weights_path)
-    trained_model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-    return trained_model
+model_dir = './model.h5'
 
 def extract_audio_features(file):
-    "Extract audio features from an audio file for emotion classification"
+    "Extract audio features from an audio file"
     timeseries_length = 128
     features = np.zeros((1, timeseries_length, 33), dtype=np.float64)
 
@@ -40,9 +34,8 @@ def get_emotion(model, music_path):
 
 if __name__ == '__main__':
     PATH = sys.argv[1] #if len(sys.argv) == 2 else './audios/classical_music.mp3'
-    MODEL = load_model('./weights/model.json', './weights/model_weights.h5')
+    MODEL = keras.models.load_model(model_dir)
     PREDICTIONS, EMOTION = get_emotion(MODEL, PATH)
     print(str(EMOTIONS)[1:-1].replace(',','').replace("'", ''))
     print(PREDICTIONS)
     print('Model prediction: ' + EMOTION)
-    

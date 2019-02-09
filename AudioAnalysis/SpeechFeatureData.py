@@ -4,7 +4,7 @@ import math
 import re
 import os
 
-class GenreFeatureData:
+class SpeechFeatureData:
 
     'Speech audio features for emotion classification'
     hop_length = None
@@ -102,10 +102,10 @@ class GenreFeatureData:
 
         return data, np.expand_dims(np.asarray(target), axis=1)
 
-    def one_hot(self, Y_genre_strings):
-        y_one_hot = np.zeros((Y_genre_strings.shape[0], len(self.emotions)))
-        for i, genre_string in enumerate(Y_genre_strings):
-            index = self.emotions.index(genre_string)
+    def one_hot(self, Y_emotion_strings):
+        y_one_hot = np.zeros((Y_emotion_strings.shape[0], len(self.emotions)))
+        for i, emotion_string in enumerate(Y_emotion_strings):
+            index = self.emotions.index(emotion_string)
             y_one_hot[i, index] = 1
         return y_one_hot
 
